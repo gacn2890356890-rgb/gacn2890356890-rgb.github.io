@@ -39,7 +39,138 @@
   
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
 
-<meta name="generator" content="Hexo 8.1.1"></head>
+<!-- hexo injector head_end start -->
+  <link rel="icon" href="/icon01.jpg" type="image/jpeg">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* 1. 强制全局背景为你的 GIF */
+    body {
+      background: url('/preview.gif') no-repeat center center fixed !important;
+      background-size: cover !important;
+    }
+
+    /* 让原本的博客内容变成半透明玻璃盒子，防止挡住动图 */
+    .body-wrap, #body-wrap, .layout, #layout, .main-inner {
+      background: rgba(255, 255, 255, 0.1) !important;
+      backdrop-filter: blur(8px);
+      border-radius: 15px;
+      margin-top: 50px;
+    }
+    
+    /* 2. 画幅开场动画 (Curtain) */
+    #magic-curtain {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(10, 10, 15, 0.85);
+      backdrop-filter: blur(15px);
+      z-index: 99999;
+      display: none; /* 默认隐藏，靠JS判断是否是主页再显示 */
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1); /* 顺滑的拉开动画 */
+      border-bottom: 2px solid #00ffff;
+      box-shadow: 0 5px 30px rgba(0, 255, 255, 0.4);
+      cursor: pointer;
+    }
+    .curtain-text {
+      color: #00ffff;
+      font-family: 'Orbitron', 'Microsoft YaHei', sans-serif;
+      font-size: 2rem;
+      text-align: center;
+      text-shadow: 0 0 15px #00ffff;
+      animation: pulse 2s infinite;
+    }
+    .curtain-subtext {
+      color: #ff66b2; /* 可爱的猛男粉 */
+      font-size: 1.2rem;
+      margin-top: 15px;
+      text-shadow: 0 0 10px #ff66b2;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 0.8; }
+      50% { transform: scale(1.05); opacity: 1; }
+      100% { transform: scale(1); opacity: 0.8; }
+    }
+
+    /* 3. 下拉控制台 (Top Drawer) */
+    #top-drawer {
+      position: fixed;
+      top: -300px; /* 隐藏在屏幕上方 */
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80%;
+      max-width: 800px;
+      height: 300px;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(0, 255, 255, 0.3);
+      border-bottom-left-radius: 20px;
+      border-bottom-right-radius: 20px;
+      z-index: 90000;
+      transition: top 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+      padding: 30px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      align-items: center;
+    }
+    #top-drawer.open {
+      top: 0; /* 拉下来 */
+    }
+
+    /* 拉下控制台的把手 */
+    #drawer-handle {
+      position: absolute;
+      bottom: -35px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 255, 255, 0.1);
+      border: 1px solid #00ffff;
+      border-top: none;
+      padding: 5px 20px;
+      border-bottom-left-radius: 15px;
+      border-bottom-right-radius: 15px;
+      color: #00ffff;
+      cursor: pointer;
+      font-weight: bold;
+      backdrop-filter: blur(5px);
+      box-shadow: 0 5px 15px rgba(0, 255, 255, 0.2);
+    }
+    #drawer-handle:hover {
+      background: rgba(0, 255, 255, 0.3);
+    }
+
+    /* 边栏里的按钮样式 */
+    .cyber-btn {
+      padding: 15px 30px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid #00ffff;
+      color: #00ffff;
+      text-decoration: none;
+      font-family: 'Orbitron', sans-serif;
+      border-radius: 10px;
+      transition: all 0.3s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 150px;
+    }
+    .cyber-btn span.kaomoji {
+      font-size: 1.5rem;
+      margin-bottom: 5px;
+      color: #ff66b2;
+    }
+    .cyber-btn:hover {
+      background: rgba(0, 255, 255, 0.2);
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+      transform: translateY(-5px);
+    }
+  </style>
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.1"></head>
 
 <body>
   <div id="container">
@@ -149,7 +280,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://gacn2890356890-rgb.github.io/2024/03/11/Embodied-AI-Exploration/" data-id="cuidrh0ll3H1YTTgQmtMdQXBH" data-title="具身智能 (Embodied AI) 探索：从世界模型到 Diffusion-VLA" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://gacn2890356890-rgb.github.io/2024/03/11/Embodied-AI-Exploration/" data-id="cuidhFC3VqSqWSxu95SFyI4cV" data-title="具身智能 (Embodied AI) 探索：从世界模型到 Diffusion-VLA" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -278,6 +409,61 @@
 
   </div>
 <!-- hexo injector body_end start -->
+  <div id="magic-curtain">
+    <div class="curtain-text">Initializing Magic Lab... (p≧w≦q)</div>
+    <div class="curtain-subtext">Click anywhere to open the portal ✧(≖ ◡ ≖✿)</div>
+  </div>
+
+  <div id="top-drawer">
+    <div id="drawer-handle" onclick="toggleDrawer()">▼ 展开工具栏 (๑•̀ㅂ•́)و✧ ▼</div>
+    
+    <a href="/about/" class="cyber-btn">
+      <span class="kaomoji">(*^▽^*)</span>
+      关于魔女 (About)
+    </a>
+    <a href="/archives/" class="cyber-btn">
+      <span class="kaomoji">_φ(❐_❐✧</span>
+      魔法卷轴 (Docs)
+    </a>
+    <a href="https://chat.openai.com/" target="_blank" class="cyber-btn">
+      <span class="kaomoji">🤖✨</span>
+      召唤 AI (Tools)
+    </a>
+    <a href="https://github.com/gacn2890356890-rgb" target="_blank" class="cyber-btn">
+      <span class="kaomoji">(ﾉ*･ω･)ﾉ</span>
+      GitHub 基地
+    </a>
+  </div>
+
+  <script>
+    // 1. 判断是否为主页，只有主页才显示“拉开画幅”的动画
+    if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
+      const curtain = document.getElementById('magic-curtain');
+      curtain.style.display = 'flex'; // 显示画幅
+      
+      // 点击任意位置，画幅向上收起
+      curtain.addEventListener('click', function() {
+        this.style.transform = 'translateY(-100%)';
+        // 动画结束后将其彻底隐藏，防止挡住正常点击
+        setTimeout(() => { this.style.display = 'none'; }, 1200);
+      });
+    }
+
+    // 2. 下拉边栏控制函数
+    function toggleDrawer() {
+      const drawer = document.getElementById('top-drawer');
+      const handle = document.getElementById('drawer-handle');
+      
+      if (drawer.classList.contains('open')) {
+        drawer.classList.remove('open');
+        handle.innerHTML = '▼ 展开工具栏 (๑•̀ㅂ•́)و✧ ▼';
+      } else {
+        drawer.classList.add('open');
+        handle.innerHTML = '▲ 收起面板 (￣▽￣)" ▲';
+      }
+    }
+  </script>
+
   <style>
     /* 抽拉盒子的基础样式 */
     #music-drawer {
