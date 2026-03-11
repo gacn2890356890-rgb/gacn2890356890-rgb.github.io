@@ -1,0 +1,347 @@
+<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="/assets/js/Meting.min.js"></script>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>魔女的探索 - As For Me</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* * --- CSS 配置与样式 --- 
+         */
+
+        /* 变量：你可以在这里设置你的动态背景 GIF 的 URL */
+        :root {
+            /* 默认为空，你可以在下方通过 JavaScript 设置，
+               或者在这里输入完整的 URL，例如：url('background.gif') */
+            --dynamic-bg-url: none;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+        }
+
+        body {
+            overflow: hidden; /* 防止原生滚动条干扰自定义效果 */
+            color: #fff;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* 1. 动态 GIF 背景层 */
+        #dynamic-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: var(--dynamic-bg-url);
+            background-size: cover;
+            background-position: center;
+            filter: blur(5px) brightness(0.7); /* 增加模糊和亮度，使内容更突出 */
+            z-index: -3;
+        }
+
+        /* 2. 静态图片层 - 魔女之女伊雷娜 */
+        #static-image-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 150px; /* 调整为你想要的大小 */
+            height: 150px;
+            z-index: -1;
+            overflow: hidden;
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+            border: 2px solid rgba(0, 255, 255, 0.3);
+        }
+
+        #static-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* 3. 类似神经网络的科技感动画层 */
+        #neural-network-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            opacity: 0.3; /* 调整透明度，使其作为背景纹理 */
+        }
+
+        /* 粒子动画的容器 */
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* 在内容下方 */
+        }
+
+        /* 主内容区域，用于实现下拉效果 */
+        #main-wrapper {
+            width: 100%;
+            height: 100%;
+            overflow-y: auto; /* 允许此层滚动 */
+            scroll-behavior: smooth; /* 平滑滚动 */
+        }
+
+        #main-content {
+            padding: 100px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 50px;
+        }
+
+        /* 4. 玻璃质感（Glassmorphism）内容框样式 */
+        .glass-box {
+            background: rgba(255, 255, 255, 0.05); /* 透明背景 */
+            backdrop-filter: blur(10px); /* 毛玻璃模糊效果 */
+            border-radius: 15px;
+            padding: 30px;
+            width: 80%;
+            max-width: 600px;
+            border: 1px solid rgba(255, 255, 255, 0.2); /* 边框 */
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3); /* 阴影 */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden; /* 裁剪反光效果 */
+        }
+
+        .glass-box:hover {
+            transform: translateY(-5px); /* 悬停浮起 */
+            box-shadow: 0 12px 40px 0 rgba(0, 255, 255, 0.4); /* 增加反光和光晕 */
+            border: 1px solid rgba(0, 255, 255, 0.5);
+        }
+
+        /* 增加玻璃反光效果 */
+        .glass-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -150%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .glass-box:hover::before {
+            left: 150%;
+        }
+
+        h2 {
+            font-family: 'Orbitron', sans-serif; /* 使用科技感字体 */
+            font-size: 2em;
+            margin-bottom: 20px;
+            border-bottom: 2px solid rgba(0, 255, 255, 0.5);
+            display: inline-block;
+            padding-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: cyan;
+        }
+
+        p {
+            line-height: 1.8;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            color: #ddd;
+        }
+
+        .highlight {
+            color: cyan;
+            font-weight: bold;
+        }
+
+        /* 鼠标样式，用于粒子效果的交互提示 */
+        body {
+            cursor: url('https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/dist/waifu-tips.json'), auto;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="particles-js"></div>
+
+    <div id="dynamic-bg"></div>
+
+    <div id="static-image-container">
+        <img id="static-image" src="https://static.wikia.nocookie.net/majo-no-tabitabi/images/2/2c/Elaina.png/revision/latest?cb=20201007034555" alt="魔女伊雷娜">
+    </div>
+
+    <canvas id="neural-network-canvas"></canvas>
+
+    <div id="main-wrapper">
+        <div id="main-content">
+            
+            <div class="glass-box">
+                <h2>关于我 - As For Me</h2>
+                <p>一个在 <span class="highlight">AI 项目</span> 与 <span class="highlight">科技感</span> 之间穿梭的旅人。</p>
+                <p>就像“魔女之旅”中的伊雷娜一样，我也在探索未知的领域，留下属于自己的数字足迹。</p>
+            </div>
+
+            <div class="glass-box">
+                <h2>当前探索 - The Wandering</h2>
+                <p>正在致力于将 <span class="highlight">具身智能</span> (Embodied AI) 与 <span class="highlight">视觉-语言-动作基础模型</span> (Diffusion-VLA) 相结合。</p>
+                <p>这是一个充满炫酷挑战和无限可能的科技魔法世界。</p>
+            </div>
+
+            <div class="glass-box">
+                <h2>我的魔法 - Skills & Magic</h2>
+                <p>使用 <span class="highlight">强化学习</span> (Goal-conditioned RL) 和 <span class="highlight">世界模型</span> (DreamerV3) 等高级数字魔法，赋予数字生命以想象力和自主行动的能力。</p>
+                <p>代码是我的咒语，神经网络是我的魔法阵。</p>
+            </div>
+
+            <div class="glass-box">
+                <h2>联系我 - Contact a Witch</h2>
+                <p>欢迎来到我的实验室，或者在 GitHub 上找到我的足迹。</p>
+                <p>共同探讨 AI 与未来，分享技术带来的炫酷体验。</p>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
+    <script>
+        /* --- 变量配置 --- */
+
+        /* 在这里填写你的动态背景图片的 URL，例如：url('background.gif')
+           如果你将其留空 (null)，则需要手动更改 :root CSS 变量 */
+        const background_gif_url = "null"; // 默认为空，你需要填写 URL
+
+        /* --- 主脚本 --- */
+
+        // 1. 设置动态 GIF 背景
+        if (background_gif_url && background_gif_url !== "null") {
+            document.documentElement.style.setProperty('--dynamic-bg-url', `url('${background_gif_url}')`);
+        }
+
+        // 2. 初始化神经网络式画布动画
+        const canvas = document.getElementById('neural-network-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let nodes = [];
+        const numNodes = 100; // 节点数量
+        const connectionDistance = 150; // 连接的最大距离
+        const nodeSpeed = 0.5; // 节点移动速度
+
+        class Node {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.dx = (Math.random() - 0.5) * nodeSpeed;
+                this.dy = (Math.random() - 0.5) * nodeSpeed;
+            }
+
+            update() {
+                if (this.x > canvas.width || this.x < 0) this.dx = -this.dx;
+                if (this.y > canvas.height || this.y < 0) this.dy = -this.dy;
+                this.x += this.dx;
+                this.y += this.dy;
+            }
+        }
+
+        function createNodes() {
+            for (let i = 0; i < numNodes; i++) {
+                nodes.push(new Node());
+            }
+        }
+
+        function drawNodes() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = 'rgba(0, 255, 255, 0.5)';
+            ctx.strokeStyle = 'rgba(0, 255, 255, 0.2)';
+
+            for (let i = 0; i < nodes.length; i++) {
+                let nodeA = nodes[i];
+                nodeA.update();
+                
+                // 绘制节点
+                ctx.beginPath();
+                ctx.arc(nodeA.x, nodeA.y, 2, 0, Math.PI * 2);
+                ctx.fill();
+
+                // 绘制连接
+                for (let j = i + 1; j < nodes.length; j++) {
+                    let nodeB = nodes[j];
+                    let dist = Math.sqrt(Math.pow(nodeA.x - nodeB.x, 2) + Math.pow(nodeA.y - nodeB.y, 2));
+                    
+                    if (dist < connectionDistance) {
+                        ctx.lineWidth = 1 - (dist / connectionDistance); // 越远越细
+                        ctx.beginPath();
+                        ctx.moveTo(nodeA.x, nodeA.y);
+                        ctx.lineTo(nodeB.x, nodeB.y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(drawNodes);
+        }
+
+        createNodes();
+        drawNodes();
+
+        // 3. 初始化粒子动画 (基于点击和悬停)
+        particlesJS("particles-js", {
+            "particles": {
+                "number": { "value": 80 },
+                "color": { "value": "#00ffff" }, // 科技感青色
+                "shape": { "type": "circle" },
+                "opacity": { "value": 0.5 },
+                "size": { "value": 3 },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#00ffff",
+                    "opacity": 0.4,
+                    "width": 1
+                },
+                "move": { "enable": true, "speed": 2 }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": { "enable": true, "mode": "repulse" }, // 悬停推开
+                    "onclick": { "enable": true, "mode": "push" } // 点击增加粒子
+                },
+                "modes": {
+                    "push": { "particles_nb": 4 },
+                    "repulse": { "distance": 100 }
+                }
+            },
+            "retina_detect": true
+        });
+
+        // 监听滚动事件，为滚动添加特殊的粒子行为
+        const mainWrapper = document.getElementById('main-wrapper');
+        mainWrapper.addEventListener('scroll', function() {
+            // 当用户滚动时，向粒子系统发送脉冲或添加粒子
+            if (window.pJSDom && window.pJSDom[0]) {
+                const particles = window.pJSDom[0].pJS;
+                // 方法一：稍微增加移动速度（模拟下拉时的推力）
+                particles.particles.move.speed = 2 + (mainWrapper.scrollTop / 100);
+                
+                // 方法二：模拟在底部添加几个粒子
+                if (mainWrapper.scrollTop + mainWrapper.clientHeight >= mainWrapper.scrollHeight - 10) {
+                   particles.fn.modes.push_particles(2);
+                }
+            }
+        });
+
+    </script>
+</body>
+</html>
