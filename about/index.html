@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>魔女的探索 - As For Me</title>
+    <link rel="icon" href="/icon01.jpg" type="image/jpeg">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
     <style>
         /* * --- CSS 配置与样式 --- 
@@ -51,21 +52,20 @@
         /* 2. 静态图片层 - 魔女之女伊雷娜 */
         #static-image-container {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 150px; /* 调整为你想要的大小 */
-            height: 150px;
-            z-index: -1;
-            overflow: hidden;
-            border-radius: 50%;
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
-            border: 2px solid rgba(0, 255, 255, 0.3);
+            bottom: -10px; /* 贴合边缘 */
+            right: -10px;
+            width: 250px;  /* 调大尺寸，更显眼 */
+            height: auto;
+            z-index: 1;    /* 提升层级，确保在背景之上 */
+            pointer-events: none; /* 防止遮挡鼠标对粒子的点击 */
+            filter: drop-shadow(0 0 15px rgba(0, 255, 255, 0.5)); /* 增加发光特效 */
+            animation: float 4s ease-in-out infinite; /* 增加漂浮动画 */
         }
 
         #static-image-container img {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
+            height: auto;
+            display: block;
         }
 
         /* 3. 类似神经网络的科技感动画层 */
@@ -188,7 +188,7 @@
             <div class="glass-box">
                 <h2>关于我 - As For Me</h2>
                 <p>一个在 <span class="highlight">AI 项目</span> 与 <span class="highlight">科技感</span> 之间穿梭的旅人。</p>
-                <p>就像“魔女之旅”中的伊蕾娜一样，我也在探索未知的领域，留下属于自己的数字足迹。</p>
+                <p>就像“魔女之旅”中的伊lei娜一样，我也在探索未知的领域，留下属于自己的数字足迹。</p>
             </div>
 
             <div class="glass-box">
@@ -219,7 +219,7 @@
 
         /* 在这里填写你的动态背景图片的 URL，例如：url('background.gif')
            如果你将其留空 (null)，则需要手动更改 :root CSS 变量 */
-        const background_gif_url = "/preview.gif"; // 默认为空，你需要填写 URL
+        const background_gif_url = "null"; // 默认为空，你需要填写 URL
 
         /* --- 主脚本 --- */
 
