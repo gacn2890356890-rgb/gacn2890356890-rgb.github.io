@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>具身智能 (Embodied AI) 探索：从世界模型到 Diffusion-VLA | GaCN_P&#39;s Space</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="欢迎来到 GaCN_P 的 AI 实验室作为一名聚焦于 AI 前沿技术的开发者，我近期深入研究了 具身智能 (Embodied AI) 领域。具身智能不仅是让 AI 拥有“大脑”，更是赋予它感知环境、并在物理世界中执行任务的能力。 以下是我基于最新论文和开源项目的研究笔记与心得。 1. 世界模型 (World Models) —— 给 AI 一对“想象力”世界模型的核心在于学习环境的动力学，让模型">
+<meta property="og:type" content="article">
+<meta property="og:title" content="具身智能 (Embodied AI) 探索：从世界模型到 Diffusion-VLA">
+<meta property="og:url" content="https://gacn2890356890-rgb.github.io/2024/03/11/Embodied-AI-Exploration/index.html">
+<meta property="og:site_name" content="GaCN_P&#39;s Space">
+<meta property="og:description" content="欢迎来到 GaCN_P 的 AI 实验室作为一名聚焦于 AI 前沿技术的开发者，我近期深入研究了 具身智能 (Embodied AI) 领域。具身智能不仅是让 AI 拥有“大脑”，更是赋予它感知环境、并在物理世界中执行任务的能力。 以下是我基于最新论文和开源项目的研究笔记与心得。 1. 世界模型 (World Models) —— 给 AI 一对“想象力”世界模型的核心在于学习环境的动力学，让模型">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-03-11T07:00:00.000Z">
+<meta property="article:modified_time" content="2026-03-11T14:37:11.710Z">
+<meta property="article:author" content="GaCN_P">
+<meta property="article:tag" content="Embodied AI">
+<meta property="article:tag" content="强化学习">
+<meta property="article:tag" content="机器人">
+<meta property="article:tag" content="深度学习">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="GaCN_P's Space" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">GaCN_P&#39;s Space</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">AI Developer | Music Explorer</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://gacn2890356890-rgb.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Embodied-AI-Exploration" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/03/11/Embodied-AI-Exploration/" class="article-date">
+  <time class="dt-published" datetime="2024-03-11T07:00:00.000Z" itemprop="datePublished">2024-03-11</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/AI-%E9%A1%B9%E7%9B%AE/">AI 项目</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      具身智能 (Embodied AI) 探索：从世界模型到 Diffusion-VLA
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="欢迎来到-GaCN-P-的-AI-实验室"><a href="#欢迎来到-GaCN-P-的-AI-实验室" class="headerlink" title="欢迎来到 GaCN_P 的 AI 实验室"></a>欢迎来到 GaCN_P 的 AI 实验室</h1><p>作为一名聚焦于 AI 前沿技术的开发者，我近期深入研究了 <strong>具身智能 (Embodied AI)</strong> 领域。具身智能不仅是让 AI 拥有“大脑”，更是赋予它感知环境、并在物理世界中执行任务的能力。</p>
+<p>以下是我基于最新论文和开源项目的研究笔记与心得。</p>
+<h2 id="1-世界模型-World-Models-——-给-AI-一对“想象力”"><a href="#1-世界模型-World-Models-——-给-AI-一对“想象力”" class="headerlink" title="1. 世界模型 (World Models) —— 给 AI 一对“想象力”"></a>1. 世界模型 (World Models) —— 给 AI 一对“想象力”</h2><p>世界模型的核心在于学习环境的动力学，让模型能够在潜空间（Latent Space）中预测执行动作后的结果。</p>
+<ul>
+<li><strong>核心逻辑</strong>：通过 RSSM (Recurrent State Space Model) 学习环境转换，实现基于想象的强化学习 (Imagination-based RL)。</li>
+<li><strong>重点关注项目</strong>：<ul>
+<li><strong>DreamerV3 (Google&#x2F;DeepMind)</strong>：RL 领域世界模型的巅峰之作。</li>
+<li><strong>Genie (Google)</strong>：通过视频学习生成的交互式环境模型。</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-Diffusion-VLA：通用且可解释的机器人基础模型"><a href="#2-Diffusion-VLA：通用且可解释的机器人基础模型" class="headerlink" title="2. Diffusion-VLA：通用且可解释的机器人基础模型"></a>2. Diffusion-VLA：通用且可解释的机器人基础模型</h2><p>这是我近期重点研读的一篇重要论文：<em>《Diffusion-VLA: Generalizable and Interpretable Robot Foundation Model via Self-Generated Reasoning》</em>。</p>
+<ul>
+<li><strong>技术亮点</strong>：<ul>
+<li>利用 <strong>自生成推理 (Self-Generated Reasoning)</strong> 提升模型的泛化能力。</li>
+<li>结合了扩散模型 (Diffusion Model) 的生成能力与视觉-语言-动作 (VLA) 的控制力。</li>
+</ul>
+</li>
+<li><strong>应用前景</strong>：让机器人在面对未见过的环境时，能够通过逻辑推理自主完成任务。</li>
+</ul>
+<h2 id="3-RL4VLA：强化学习驱动的视觉-语言-动作"><a href="#3-RL4VLA：强化学习驱动的视觉-语言-动作" class="headerlink" title="3. RL4VLA：强化学习驱动的视觉-语言-动作"></a>3. RL4VLA：强化学习驱动的视觉-语言-动作</h2><p>既然 VLA 提供了基础控制能力，那么 RL 则负责在特定任务上进行微调和探索。</p>
+<ul>
+<li><strong>Octo</strong>：伯克利团队开发的通用机器人策略模型。</li>
+<li><strong>Calvin</strong>：极佳的强化学习训练基准环境。</li>
+<li><strong>学习重点</strong>：<ul>
+<li><strong>Goal-conditioned RL</strong>：如何通过语言或图像目标引导模型。</li>
+<li><strong>混合训练</strong>：结合 Offline RL 的稳定性与 Online RL 的探索性。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="🎵-灵感角落"><a href="#🎵-灵感角落" class="headerlink" title="🎵 灵感角落"></a>🎵 灵感角落</h1><p>在代码运行和模型训练的间隙，音乐是我最好的灵感来源。</p>
+<blockquote>
+<p>“AI 赋予机器逻辑，音乐赋予人类灵魂。” —— GaCN_P</p>
+</blockquote>
+<hr>
+<p><strong>如果你对具身智能或机器人基础模型感兴趣，欢迎在我的 GitHub 上查看相关实验代码！</strong></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/gacn2890356890-rgb">查看我的项目仓库</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://gacn2890356890-rgb.github.io/2024/03/11/Embodied-AI-Exploration/" data-id="cuidFXtinExTUKmafoy2fsFwm" data-title="具身智能 (Embodied AI) 探索：从世界模型到 Diffusion-VLA" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Embodied-AI/" rel="tag">Embodied AI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" rel="tag">强化学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E4%BA%BA/" rel="tag">机器人</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag">深度学习</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/1970/01/01/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">Hello World</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/AI-%E9%A1%B9%E7%9B%AE/">AI 项目</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Embodied-AI/" rel="tag">Embodied AI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" rel="tag">强化学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E4%BA%BA/" rel="tag">机器人</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag">深度学习</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Embodied-AI/" style="font-size: 10px;">Embodied AI</a> <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 10px;">强化学习</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E4%BA%BA/" style="font-size: 10px;">机器人</a> <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" style="font-size: 10px;">深度学习</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/">三月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/1970/01/">一月 1970</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/03/11/Embodied-AI-Exploration/">具身智能 (Embodied AI) 探索：从世界模型到 Diffusion-VLA</a>
+          </li>
+        
+          <li>
+            <a href="/1970/01/01/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2026 GaCN_P<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+<!-- hexo injector body_end start -->
+  <style>
+    /* 抽拉盒子的基础样式 */
+    #music-drawer {
+      position: fixed;
+      left: -330px; /* 默认把 330px 宽的播放器藏在屏幕外 */
+      bottom: 80px;  /* 距离底部留点距离，别挡住你的 Miku */
+      z-index: 999999;
+      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      display: flex;
+      align-items: center;
+    }
+
+    /* 当点击激活后，left 变为 0，滑出来 */
+    #music-drawer.active {
+      left: 0;
+      box-shadow: 5px 0 15px rgba(0,0,0,0.2);
+    }
+
+    /* 侧边的抽拉拉手 */
+    .music-handle {
+      width: 35px;
+      height: 80px;
+      background: #2980b9; /* 科技蓝，你可以改成你喜欢的颜色 */
+      color: white;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 0 8px 8px 0;
+      font-size: 12px;
+      writing-mode: vertical-lr; /* 文字竖过来 */
+      position: absolute;
+      right: -35px;
+      letter-spacing: 2px;
+      opacity: 0.8;
+    }
+
+    .music-handle:hover {
+      opacity: 1;
+      background: #3498db;
+    }
+  </style>
+
+  <div id="music-drawer">
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="450" 
+      src="https://music.163.com/outchain/player?type=1&id=288954779&auto=0&height=430">
+    </iframe>
+    
+    <div class="music-handle" onclick="toggleMusic()">
+      <span id="music-text">展开播放器</span>
+    </div>
+  </div>
+
+  <script>
+    function toggleMusic() {
+      const drawer = document.getElementById('music-drawer');
+      const text = document.getElementById('music-text');
+      drawer.classList.toggle('active');
+      if (drawer.classList.contains('active')) {
+        text.innerText = '收起播放器';
+      } else {
+        text.innerText = '展开播放器';
+      }
+    }
+  </script>
+<!-- hexo injector body_end end --><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/miku.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":20,"vOffset":-20},"mobile":{"show":false},"react":{"opacity":1},"log":false});</script></body>
+</html>
