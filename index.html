@@ -326,7 +326,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://gacn2890356890-rgb.github.io/2024/03/11/Embodied-AI-Exploration/" data-id="cuidMHINvZgCg4L7S7x4_cqFo" data-title="具身智能 (Embodied AI) 探索：从世界模型到 Diffusion-VLA" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://gacn2890356890-rgb.github.io/2024/03/11/Embodied-AI-Exploration/" data-id="cuidrb0fnt7NabuCpLFWTh7Ik" data-title="具身智能 (Embodied AI) 探索：从世界模型到 Diffusion-VLA" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -379,7 +379,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://gacn2890356890-rgb.github.io/1970/01/01/hello-world/" data-id="cuidyGrugCgcJ1P6iTmJ4SqrN" data-title="Hello World" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://gacn2890356890-rgb.github.io/1970/01/01/hello-world/" data-id="cuid_XTD2dhsj5T0MR2vrtX2q" data-title="Hello World" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -498,6 +498,71 @@
 
   </div>
 <!-- hexo injector body_end start -->
+  <div id="magic-curtain">
+    <div class="curtain-text">Initializing Magic Lab... (p≧w≦q)</div>
+    <div class="curtain-subtext">Click anywhere to open the portal ✧(≖ ◡ ≖✿)</div>
+  </div>
+
+  <div id="top-drawer">
+    <div id="drawer-handle" onclick="toggleDrawer()">▼ 展开工具栏 (๑•̀ㅂ•́)و✧ ▼</div>
+    
+    <a href="/about/" class="cyber-btn">
+      <span class="kaomoji">(*^▽^*)</span>
+      关于魔女 (About)
+    </a>
+    <a href="/archives/" class="cyber-btn">
+      <span class="kaomoji">_φ(❐_❐✧</span>
+      魔法卷轴 (Docs)
+    </a>
+    <a href="/ai/" class="cyber-btn">
+      <span class="kaomoji">🧙‍♂️🔮</span>
+      AI 魔法书 (Spellbook)
+    </a>
+    <a href="https://github.com/gacn2890356890-rgb" target="_blank" class="cyber-btn">
+      <span class="kaomoji">(ﾉ*･ω･)ﾉ</span>
+      GitHub 基地
+    </a>
+  </div>
+
+  <script>
+    // 1. 判断是否为主页，只有主页才显示“拉开画幅”的动画
+    if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
+      const curtain = document.getElementById('magic-curtain');
+      curtain.style.display = 'flex'; // 显示画幅
+      
+      // 点击任意位置，画幅向上收起
+      curtain.addEventListener('click', function() {
+        this.style.transform = 'translateY(-100%)';
+        // 动画结束后将其彻底隐藏，防止挡住正常点击
+        setTimeout(() => { this.style.display = 'none'; }, 1200);
+      });
+    }
+
+    // 一键复制咒语功能
+    function copySpell(btn) {
+        const text = btn.nextElementSibling.innerText;
+        navigator.clipboard.writeText(text).then(() => {
+            const originalText = btn.innerText;
+            btn.innerText = '(ﾉ*･ω･)ﾉ 吟唱中！'; // 复制时的可爱反馈
+            setTimeout(() => { btn.innerText = originalText; }, 2000);
+        });
+    }
+
+    // 2. 下拉边栏控制函数
+    function toggleDrawer() {
+      const drawer = document.getElementById('top-drawer');
+      const handle = document.getElementById('drawer-handle');
+      
+      if (drawer.classList.contains('open')) {
+        drawer.classList.remove('open');
+        handle.innerHTML = '▼ 展开工具栏 (๑•̀ㅂ•́)و✧ ▼';
+      } else {
+        drawer.classList.add('open');
+        handle.innerHTML = '▲ 收起面板 (￣▽￣)" ▲';
+      }
+    }
+  </script>
+
   <style>
     /* 抽拉盒子的基础样式 */
     #music-drawer {
@@ -560,71 +625,6 @@
         text.innerText = '收起播放器';
       } else {
         text.innerText = '展开播放器';
-      }
-    }
-  </script>
-
-  <div id="magic-curtain">
-    <div class="curtain-text">Initializing Magic Lab... (p≧w≦q)</div>
-    <div class="curtain-subtext">Click anywhere to open the portal ✧(≖ ◡ ≖✿)</div>
-  </div>
-
-  <div id="top-drawer">
-    <div id="drawer-handle" onclick="toggleDrawer()">▼ 展开工具栏 (๑•̀ㅂ•́)و✧ ▼</div>
-    
-    <a href="/about/" class="cyber-btn">
-      <span class="kaomoji">(*^▽^*)</span>
-      关于魔女 (About)
-    </a>
-    <a href="/archives/" class="cyber-btn">
-      <span class="kaomoji">_φ(❐_❐✧</span>
-      魔法卷轴 (Docs)
-    </a>
-    <a href="/ai/" class="cyber-btn">
-      <span class="kaomoji">🧙‍♂️🔮</span>
-      AI 魔法书 (Spellbook)
-    </a>
-    <a href="https://github.com/gacn2890356890-rgb" target="_blank" class="cyber-btn">
-      <span class="kaomoji">(ﾉ*･ω･)ﾉ</span>
-      GitHub 基地
-    </a>
-  </div>
-
-  <script>
-    // 1. 判断是否为主页，只有主页才显示“拉开画幅”的动画
-    if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
-      const curtain = document.getElementById('magic-curtain');
-      curtain.style.display = 'flex'; // 显示画幅
-      
-      // 点击任意位置，画幅向上收起
-      curtain.addEventListener('click', function() {
-        this.style.transform = 'translateY(-100%)';
-        // 动画结束后将其彻底隐藏，防止挡住正常点击
-        setTimeout(() => { this.style.display = 'none'; }, 1200);
-      });
-    }
-
-    // 一键复制咒语功能
-    function copySpell(btn) {
-        const text = btn.nextElementSibling.innerText;
-        navigator.clipboard.writeText(text).then(() => {
-            const originalText = btn.innerText;
-            btn.innerText = '(ﾉ*･ω･)ﾉ 吟唱中！'; // 复制时的可爱反馈
-            setTimeout(() => { btn.innerText = originalText; }, 2000);
-        });
-    }
-
-    // 2. 下拉边栏控制函数
-    function toggleDrawer() {
-      const drawer = document.getElementById('top-drawer');
-      const handle = document.getElementById('drawer-handle');
-      
-      if (drawer.classList.contains('open')) {
-        drawer.classList.remove('open');
-        handle.innerHTML = '▼ 展开工具栏 (๑•̀ㅂ•́)و✧ ▼';
-      } else {
-        drawer.classList.add('open');
-        handle.innerHTML = '▲ 收起面板 (￣▽￣)" ▲';
       }
     }
   </script>
