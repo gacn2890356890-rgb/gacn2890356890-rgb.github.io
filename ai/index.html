@@ -127,6 +127,28 @@
 
         /* 描述小字 */
         .desc { font-size: 0.75rem; color: rgba(255,255,255,0.4); display: block; width: 100%; text-align: center; margin-top: 50px; font-family: 'Orbitron', sans-serif;}
+
+        /* 飞书魔法窗口容器 */
+        .iframe-wrapper {
+            width: 100%;
+            height: 80vh; /* 占用屏幕高度的 80% */
+            background: rgba(20, 20, 30, 0.4);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 20px;
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(0, 255, 255, 0.1);
+            overflow: hidden; /* 确保圆角能剪裁掉内部内容 */
+            position: relative;
+        }
+
+        /* 内部飞书框架 */
+        .iframe-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            /* 稍微调高对比度，让它更融入深色背景 */
+            filter: contrast(1.05) brightness(0.9); 
+        }    
     </style>
 </head>
 <body>
@@ -141,8 +163,8 @@
             <p>魔女的赛博武器库 / 人工智能探索图鉴 / All-in-One AI Toolkit</p>
         </div>
 
-        <div class="grid">
-            
+        <div class="iframe-wrapper">
+            <iframe src="https://qcn6ncje7nd0.feishu.cn/wiki/VdqdwCgcPiTpK5ko6KRcpKf8nE1"></iframe>          
             <div class="glass-card">
                 <div class="card-title">
                     <span class="icon" style="color: #00ffff;">💬</span> Daily & Logic
@@ -170,10 +192,7 @@
                     <a href="https://consensus.app/" target="_blank" class="tool-link">Consensus</a>
                     <a href="https://typeset.io/" target="_blank" class="tool-link">SciSpace</a>
                     <a href="https://www.chatpdf.com/" target="_blank" class="tool-link">ChatPDF</a>
-                    <a href="https://metaso.cn/" target="_blank" class="tool-link">秘塔 AI 搜索</a>
-                    <a href="/categories/Prompt-Spells/" class="tool-link pink-hover">
-                        📖 咒语图鉴 (Tutorials)
-                    </a>
+                    <a href="https://metaso.cn/" target="_blank" class="tool-link">秘塔 AI 搜索</a>                  
                 </div>
             </div>
 
