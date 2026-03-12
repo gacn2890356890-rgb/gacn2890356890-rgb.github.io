@@ -164,6 +164,55 @@
       box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
       transform: translateY(-5px);
     }
+
+    /* 咒语卡片容器 */
+  .spell-card {
+      background: rgba(0, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(0, 255, 255, 0.3);
+      border-left: 4px solid #00ffff; /* 侧边粗线更有咒语书的感觉 */
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
+      position: relative;
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.1);
+      transition: all 0.3s ease;
+  }
+
+  .spell-card:hover {
+      box-shadow: 0 0 25px rgba(0, 255, 255, 0.3);
+      background: rgba(0, 255, 255, 0.08);
+  }
+
+  /* 咒语标题 */
+  .spell-title {
+      font-family: 'Orbitron', sans-serif;
+      color: #ff66b2; /* 萌点粉 */
+      font-size: 0.9rem;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+  }
+
+  /* 复制按钮 */
+  .copy-spell-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(0, 255, 255, 0.2);
+      border: 1px solid #00ffff;
+      color: #00ffff;
+      padding: 4px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      transition: all 0.2s;
+  }
+
+  .copy-spell-btn:hover {
+      background: #00ffff;
+      color: #000;
+  }
   </style>
 <!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.1"></head>
 
@@ -480,6 +529,16 @@
         // 动画结束后将其彻底隐藏，防止挡住正常点击
         setTimeout(() => { this.style.display = 'none'; }, 1200);
       });
+    }
+
+    // 一键复制咒语功能
+    function copySpell(btn) {
+        const text = btn.nextElementSibling.innerText;
+        navigator.clipboard.writeText(text).then(() => {
+            const originalText = btn.innerText;
+            btn.innerText = '(ﾉ*･ω･)ﾉ 吟唱中！'; // 复制时的可爱反馈
+            setTimeout(() => { btn.innerText = originalText; }, 2000);
+        });
     }
 
     // 2. 下拉边栏控制函数
