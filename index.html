@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Jia Luo — HUST Senior · BISP Visiting Student · NLP · Multi-Agent Systems · IEEE SPL & NLPCC Reviewer">
+    <meta name="author" content="Jia Luo">
+    <meta property="og:title" content="Jia Luo — Academic Homepage">
+    <meta property="og:description" content="HUST · BISP · NLP · Machine Translation · Computational Social Science">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://gacn2890356890-rgb.github.io">
+    <meta name="twitter:card" content="summary">
+    <title>Jia Luo — Academic Homepage</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <!-- Starfield Canvas -->
+    <canvas id="starfield"></canvas>
+
+    <!-- Floating Orbs -->
+    <div class="floating-orb orb-hydro"></div>
+    <div class="floating-orb orb-geo"></div>
+    <div class="floating-orb orb-celestial"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#home" class="nav-brand">
+                <span class="nav-icon">JL</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#publications">Publications</a></li>
+                <li><a href="#service">Service</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button class="nav-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+        </div>
+        <div class="nav-glow"></div>
+    </nav>
+
+    <!-- Music Player Toggle -->
+    <button class="music-toggle" id="music-toggle" aria-label="Toggle music" title="Play Genshin OST">
+        <i class="fas fa-music"></i>
+    </button>
+    <div class="music-info" id="music-info">
+        <span class="music-title">🎵 Genshin Impact — Relaxing OST</span>
+        <div class="music-controls">
+            <button id="music-play" title="Play/Pause"><i class="fas fa-play"></i></button>
+            <input type="range" id="music-volume" min="0" max="100" value="30" title="Volume">
+        </div>
+    </div>
+
+    <!-- ==================== HERO SECTION ==================== -->
+    <section id="home" class="hero-section">
+        <div class="hero-bg">
+            <img src="images/furina-splash.png" alt="Furina" class="hero-bg-img">
+            <div class="hero-bg-overlay"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-avatar-wrapper">
+                <div class="hero-avatar-ring">
+                    <img src="images/github-avatar.png" alt="Avatar" class="hero-avatar">
+                </div>
+            </div>
+            <h1 class="hero-title">Jia Luo</h1>
+            <div class="hero-subtitle">
+                <span>Senior Undergraduate @ Huazhong University of Science & Technology</span>
+                <span class="hero-sep">·</span>
+                <span>BISP Visiting Student</span>
+            </div>
+            <p class="hero-desc">
+                Exploring <strong>Natural Language Processing</strong>, <strong>Machine Translation</strong>,
+                <strong>Sentiment Analysis</strong>, <strong>Multi-Agent Systems</strong>,
+                <strong>Computational Social Science</strong>, and <strong>Computer Architecture</strong>.
+            </p>
+            <div class="hero-actions">
+                <a href="#publications" class="btn-primary"><i class="fas fa-book-open"></i> Publications</a>
+                <a href="https://github.com/gacn2890356890-rgb" target="_blank" class="btn-secondary"><i class="fab fa-github"></i> GitHub</a>
+                <a href="#gallery" class="btn-secondary"><i class="fas fa-images"></i> Gallery</a>
+            </div>
+        </div>
+        <div class="hero-scroll">
+            <span>Scroll to explore</span>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- ==================== CHARACTER GALLERY ==================== -->
+    <section id="gallery" class="gallery-section">
+        <div class="section-header">
+            <h2 class="section-title">Character Showcase</h2>
+            <p class="section-subtitle">Inspired by the world of Teyvat</p>
+        </div>
+
+        <div class="gallery-grid">
+            <!-- Furina Card -->
+            <div class="gallery-card furina-card">
+                <div class="gallery-card-inner">
+                    <div class="gallery-card-front">
+                        <div class="gallery-img-wrapper">
+                            <img src="images/furina-splash.png" alt="Furina — Hydro Archon" class="gallery-img">
+                            <div class="gallery-img-overlay"></div>
+                        </div>
+                        <div class="gallery-label">
+                            <span class="gallery-element hydro">Hydro</span>
+                            <h3>Furina</h3>
+                            <p>Regina of All Waters, Kindreds, Peoples and Laws</p>
+                        </div>
+                    </div>
+                    <div class="gallery-card-back">
+                        <div class="back-content">
+                            <i class="fas fa-water back-icon hydro-color"></i>
+                            <h3>"The curtain rises on my next performance."</h3>
+                            <p>Just as Furina commands the stage with grace and precision, I approach research with dedication and an eye for the dramatic — every paper a performance, every experiment a scene in a greater story.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sandrone Card (CSS Art) -->
+            <div class="gallery-card sandrone-card">
+                <div class="gallery-card-inner">
+                    <div class="gallery-card-front">
+                        <div class="gallery-img-wrapper">
+                            <img src="images/sandrone.png" alt="Sandrone — The Marionette" class="gallery-img">
+                            <div class="gallery-img-overlay"></div>
+                        </div>
+                        <div class="gallery-label">
+                            <span class="gallery-element geo">Geo · Cryo</span>
+                            <h3>Sandrone</h3>
+                            <p>The Marionette — Seventh of the Fatui Harbingers</p>
+                        </div>
+                    </div>
+                    <div class="gallery-card-back sandrone-back">
+                        <div class="back-content">
+                            <i class="fas fa-cogs back-icon geo-color"></i>
+                            <h3>"Every puppet dances to its master's will."</h3>
+                            <p>Sandrone's mastery over marionettes mirrors the art of research — orchestrating models, data, and algorithms in perfect harmony, each component dancing to the rhythm of scientific inquiry.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Moon Goddess Card (Layla) -->
+            <div class="gallery-card moon-card">
+                <div class="gallery-card-inner">
+                    <div class="gallery-card-front">
+                        <div class="gallery-img-wrapper">
+                            <img src="images/columbina.png" alt="Columbina — Damselette" class="gallery-img">
+                            <div class="gallery-img-overlay moon-overlay"></div>
+                        </div>
+                        <div class="gallery-label">
+                            <span class="gallery-element celestial">Celestial</span>
+                            <h3>Columbina</h3>
+                            <p>Damselette — Third of the Fatui Harbingers</p>
+                        </div>
+                    </div>
+                    <div class="gallery-card-back moon-back">
+                        <div class="back-content">
+                            <i class="fas fa-dove back-icon celestial-color"></i>
+                            <h3>"A gentle song, sung for the weary."</h3>
+                            <p>Columbina's serene presence reminds us that true power lies in stillness. Like her, great research comes from quiet contemplation — observing deeply before acting decisively.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Wallpaper Strip -->
+        <div class="wallpaper-strip">
+            <div class="wallpaper-item">
+                <img src="images/furina-splash.png" alt="Furina Wallpaper">
+                <div class="wallpaper-caption">Furina de Fontaine</div>
+            </div>
+            <div class="wallpaper-item">
+                <img src="images/citlali.png" alt="Citlali — Obsidian Priestess">
+                <div class="wallpaper-caption">Citlali · Obsidian Priestess</div>
+            </div>
+            <div class="wallpaper-item">
+                <img src="images/columbina.png" alt="Columbina — Damselette">
+                <div class="wallpaper-caption">Columbina · Damselette</div>
+            </div>
+            <div class="wallpaper-item">
+                <img src="images/sandrone.png" alt="Sandrone — The Marionette">
+                <div class="wallpaper-caption">Sandrone · The Marionette</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== ABOUT SECTION ==================== -->
+    <section id="about" class="about-section">
+        <div class="section-header">
+            <h2 class="section-title">About Me</h2>
+            <p class="section-subtitle">"Like water, I adapt. Like gears, I build. Like the moon, I illuminate."</p>
+        </div>
+
+        <div class="about-grid">
+            <div class="genshin-card about-card edu-card">
+                <div class="card-inner">
+                    <div class="card-icon"><i class="fas fa-university"></i></div>
+                    <h3>Education</h3>
+                    <div class="edu-timeline">
+                        <div class="edu-block">
+                            <span class="edu-year">2023 — 2027</span>
+                            <strong>Huazhong University of Science & Technology</strong>
+                        </div>
+                        <div class="edu-divider"></div>
+                        <div class="edu-block">
+                            <span class="edu-year">2026 Fall</span>
+                            <strong>BISP Visiting Program</strong>
+                            <span class="edu-sub">International Academic Exchange</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="genshin-card about-card research-card">
+                <div class="card-inner">
+                    <div class="card-icon"><i class="fas fa-microscope"></i></div>
+                    <h3>Research</h3>
+                    <div class="tags">
+                        <span>Natural Language Processing</span><span>Machine Translation</span>
+                        <span>Sentiment Analysis</span><span>Multi-Agent Systems</span>
+                        <span>Computational Social Science</span><span>Computer Architecture</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="genshin-card about-card stats-card">
+                <div class="card-inner">
+                    <div class="card-icon"><i class="fas fa-chart-bar"></i></div>
+                    <h3>At a Glance</h3>
+                    <div class="mini-stats">
+                        <div class="mini-stat"><span class="ms-num" id="paper-count">1</span><span class="ms-label">Paper</span></div>
+                        <div class="mini-stat"><span class="ms-num">2</span><span class="ms-label">Venues Reviewed</span></div>
+                        <div class="mini-stat"><span class="ms-num">2</span><span class="ms-label">Labs</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== PUBLICATIONS ==================== -->
+    <section id="publications" class="pubs-section">
+        <div class="section-header">
+            <h2 class="section-title">Publications</h2>
+            <p class="section-subtitle">"Every gear turns with purpose." — Sandrone</p>
+        </div>
+
+        <div class="pub-controls">
+            <div class="pub-search-wrap">
+                <i class="fas fa-search"></i>
+                <input type="text" id="pub-search" placeholder="Search papers..." class="pub-search-input">
+            </div>
+            <div class="pub-filters">
+                <button class="f-btn active" data-filter="all">All</button>
+                <button class="f-btn" data-filter="2026">2026</button>
+                <button class="f-btn" data-filter="2025">2025</button>
+            </div>
+        </div>
+
+        <div class="pub-loading" id="pub-loading">
+            <div class="gear-spinner">
+                <span class="gs g1">⚙️</span><span class="gs g2">⚙️</span><span class="gs g3">⚙️</span>
+            </div>
+            <p>Fetching from arXiv...</p>
+        </div>
+
+        <div class="pub-list" id="pub-list"></div>
+        <div class="pub-empty" id="pub-empty" style="display:none;">
+            <i class="fas fa-hourglass-half"></i>
+            <p>More papers coming soon.</p>
+        </div>
+    </section>
+
+    <!-- ==================== SERVICE ==================== -->
+    <section id="service" class="service-section">
+        <div class="section-header">
+            <h2 class="section-title">Academic Service</h2>
+            <p class="section-subtitle">"The moon shines equally on all who seek truth."</p>
+        </div>
+
+        <div class="service-grid">
+            <div class="genshin-card service-card" id="reviewer-card">
+                <div class="card-inner">
+                    <div class="card-icon"><i class="fas fa-gavel"></i></div>
+                    <h3>Reviewer</h3>
+                    <div class="reviewer-list">
+                        <div class="rv-item">
+                            <span class="rv-badge ieee">IEEE</span>
+                            <div><strong>IEEE Signal Processing Letters</strong><br><small>Peer reviewer for signal processing & ML manuscripts</small></div>
+                        </div>
+                        <div class="rv-item">
+                            <span class="rv-badge nlpcc">NLPCC</span>
+                            <div><strong>NLPCC Conference</strong><br><small>PC reviewer — CCF International Conference on NLP & Chinese Computing</small></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="genshin-card service-card" id="or-card">
+                <div class="card-inner">
+                    <div class="card-icon"><i class="fas fa-comments"></i></div>
+                    <h3>OpenReview</h3>
+                    <div class="or-preview">
+                        <div class="or-avatar">JL</div>
+                        <div>
+                            <strong>Jia Luo</strong>
+                            <code>~Jia_Luo3</code>
+                        </div>
+                    </div>
+                    <a href="https://openreview.net/profile?id=~Jia_Luo3" target="_blank" class="btn-or">
+                        <i class="fas fa-external-link-alt"></i> View Profile
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== CONTACT ==================== -->
+    <section id="contact" class="contact-section">
+        <div class="section-header">
+            <h2 class="section-title">Contact</h2>
+            <p class="section-subtitle">"May the stars guide our meeting."</p>
+        </div>
+        <div class="contact-links">
+            <a href="https://github.com/gacn2890356890-rgb" target="_blank" class="contact-card">
+                <div class="cc-icon"><i class="fab fa-github"></i></div>
+                <span class="cc-label">GitHub</span>
+                <span class="cc-val">@gacn2890356890-rgb</span>
+            </a>
+            <a href="https://openreview.net/profile?id=~Jia_Luo3" target="_blank" class="contact-card">
+                <div class="cc-icon"><i class="fas fa-file-alt"></i></div>
+                <span class="cc-label">OpenReview</span>
+                <span class="cc-val">~Jia_Luo3</span>
+            </a>
+            <a href="mailto:u202317016@hust.edu.cn" class="contact-card">
+                <div class="cc-icon"><i class="fas fa-envelope"></i></div>
+                <span class="cc-label">Email</span>
+                <span class="cc-val">u202317016@hust.edu.cn</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="footer">
+        <p class="footer-quote">"Let the moon light your path, let the waters carry your thoughts, and let the gears of your mind never cease turning."</p>
+        <p class="footer-copy">© 2026 Jia Luo · Built with the spirit of Teyvat · <a href="https://github.com/gacn2890356890-rgb/gacn2890356890-rgb.github.io">Source</a></p>
+    </footer>
+
+    <!-- YouTube iframe for music (hidden) -->
+    <div id="yt-player-wrapper" style="display:none;">
+        <iframe id="yt-player" width="0" height="0"
+            src="https://www.youtube.com/embed/nGDk6JqfQu0?enablejsapi=1&controls=0&loop=1&playlist=nGDk6JqfQu0"
+            frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
+        </iframe>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
