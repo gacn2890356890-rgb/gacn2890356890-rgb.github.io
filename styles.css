@@ -435,6 +435,14 @@ section { position: relative; z-index: 1; padding: 100px 0; }
 .paper-authors { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 6px; }
 .paper-authors .me { color: var(--ui-gold); font-weight: 600; }
 .paper-venue { display: inline-block; padding: 2px 10px; background: rgba(126, 140, 196, 0.1); border-radius: 4px; font-size: 0.72rem; color: var(--celestial-light); margin-top: 6px; }
+
+/* Project badge */
+.paper-badge {
+    display: inline-block; padding: 3px 10px; border-radius: 100px;
+    font-size: 0.68rem; font-weight: 600; margin-left: 8px; vertical-align: middle;
+}
+.project-badge { background: rgba(126, 140, 196, 0.12); color: var(--celestial-light); }
+.project-card::before { background: linear-gradient(180deg, var(--celestial), var(--hydro)) !important; }
 .paper-links { display: flex; gap: 10px; margin-top: 14px; flex-wrap: wrap; }
 .paper-link {
     display: inline-flex; align-items: center; gap: 5px; padding: 6px 14px;

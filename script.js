@@ -7,6 +7,9 @@
 const ARXIV_AUTHOR = 'Jia Luo';
 const ARXIV_MAX_RESULTS = 20;
 
+// arXiv preprint IDs to exclude from the publication list (listed as Research Projects instead)
+const EXCLUDE_ARXIV_IDS = ['2607.26903', '2607.27994'];
+
 const MANUAL_PAPERS = [
     {
         id: '2606.10359',
@@ -15,6 +18,7 @@ const MANUAL_PAPERS = [
         year: 2026,
         abstract: 'Introduces REFLECTICHAIN, a framework bridging the epistemic gap between LLMs and RL for supply chain resilience. Features a Generative Supply Chain World Model (SC-WM) with 6D graph-latent space encoding and Double-Loop Learning that separates epistemic from aleatoric uncertainty. On the Semi-Sim benchmark (10-node semiconductor network), improves Rationale Consistency Score by 33.0% (p < 0.0001, d = 2.78) and maintains 82.3% operability under adversarial shocks.',
         venue: 'EIML@ICML 2026 Workshop (Poster)',
+        isProject: false,
     },
     {
         id: null,
@@ -22,7 +26,26 @@ const MANUAL_PAPERS = [
         authors: ['Jia Luo', 'Min Liu', 'Zixin Huang', 'Zikan Ke', 'Qing Wang'],
         year: 2026,
         abstract: 'LLM agents in long-horizon planning often exhibit Semantic-Execution Drift (SED), where executed actions progressively deviate from original language constraints. We model SED as a stochastic drift process: D(t+1) = αD(t) + ε(t) + βP(t), and show that policies with α < 1 induce semantic contraction. We propose ReflectiChain, integrating Retrospective Reflection, a Latent World Model, and Double-Loop Policy Adaptation. We introduce Sema-Sim, a multi-agent supply chain benchmark with 10 policy constraints, 6 adversarial perturbations, and 30-step horizons, plus the Semantic Fidelity Index (SFI). On DeepSeek-V3.2 across 7 reasoning strategies, ReflectiChain achieves SFI of 88.7 and stable contraction (α = 0.823). Validated on Qwen3.5-122B and Qwen2.5-72B.',
-        venue: 'Accepted — Coming Soon',
+        venue: 'Electronics 15(15), 3452 (JCR Q2), 2026. DOI: 10.3390/electronics15153452',
+        isProject: false,
+    },
+    {
+        id: '2607.26903',
+        title: 'From Passive Video to Editable Experience: Physically Grounded Experience Synthesis for Embodied Intelligence',
+        authors: ['Jia Luo'],
+        year: 2026,
+        abstract: 'Converts passive human demonstration videos into robot-learnable editable experiences via graph-based intermediate representations (Task Graph → Affordance & Constraint Graphs → Robot Planning Graph), a hierarchical affordance latent space for object-agnostic generalization, and a closed-loop physics verifier ensuring kinematic and collision validity.',
+        venue: 'Research Project · arXiv:2607.26903 [cs.AI] · Under submission to AAAI 2027',
+        isProject: true,
+    },
+    {
+        id: '2607.27994',
+        title: 'SKIMIX: Multi-Agent Harness-Time Scaling with Skill Mixture for Dynamic Harness Engineering',
+        authors: ['Jia Luo'],
+        year: 2026,
+        abstract: 'Proposes a multi-agent collaboration framework where agents with distinct skill portfolios refine outputs iteratively, combining embedding-based skill retrieval, submodular anti-dilution routing, and adaptive skill evolution. Retains 92% peak performance at 500 agents vs. 67% without this mechanism.',
+        venue: 'Research Project · arXiv:2607.27994 [cs.AI] · Under submission to AAAI 2027',
+        isProject: true,
     },
 ];
 
@@ -318,6 +341,9 @@ async function fetchPapers() {
                     if (jr && jr[0]) journalRef = jr[0].textContent || '';
                 } catch(e) {}
 
+                // Skip arXiv preprints listed as Research Projects
+                if (EXCLUDE_ARXIV_IDS.includes(arxivId)) return;
+
                 papers.push({
                     id: arxivId,
                     title,
@@ -380,13 +406,15 @@ function renderPapers(papers) {
         }).join(', ');
 
         const hasArxiv = paper.id && paper.id !== 'accepted';
+        const isProject = paper.isProject;
 
         return `
-        <div class="paper-card fade-in-up" style="animation-delay:${idx * 0.08}s" data-year="${paper.year}">
+        <div class="paper-card fade-in-up${isProject ? ' project-card' : ''}" style="animation-delay:${idx * 0.08}s" data-year="${paper.year}">
             <span class="paper-year">${paper.year}</span>
+            ${isProject ? '<span class="paper-badge project-badge"><i class="fas fa-flask"></i> Research Project</span>' : ''}
             <h3 class="paper-title">${paper.title}</h3>
             <p class="paper-authors">${authorStr}</p>
-            ${paper.venue ? `<span class="paper-venue"><i class="fas fa-trophy"></i> ${paper.venue}</span>` : ''}
+            ${paper.venue ? `<span class="paper-venue"><i class="fas ${isProject ? 'fa-diagram-project' : 'fa-trophy'}"></i> ${paper.venue}</span>` : ''}
             <p class="paper-abstract">${paper.abstract || ''}</p>
             <div class="paper-links">
                 ${hasArxiv ? `
@@ -436,12 +464,19 @@ function initPaperFilter() {
 function applyFilters() {
     const papers = window._allPapers || [];
     const term = (document.getElementById('pub-search')?.value || '').toLowerCase();
-    const activeYear = document.querySelector('.f-btn.active')?.dataset?.filter || 'all';
+    const activeFilter = document.querySelector('.f-btn.active')?.dataset?.filter || 'all';
 
     let filtered = papers;
-    if (activeYear !== 'all') {
-        filtered = filtered.filter(p => p.year === parseInt(activeYear));
+
+    if (activeFilter === 'publications') {
+        filtered = filtered.filter(p => !p.isProject);
+    } else if (activeFilter === 'projects') {
+        filtered = filtered.filter(p => p.isProject);
+    } else if (activeFilter !== 'all') {
+        // Year filter
+        filtered = filtered.filter(p => p.year === parseInt(activeFilter));
     }
+
     if (term) {
         filtered = filtered.filter(p =>
             p.title.toLowerCase().includes(term) ||
