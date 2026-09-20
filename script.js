@@ -1,21 +1,18 @@
 /* ============================================================
    Genshin Academic Homepage — JavaScript
-   Starfield · Arxiv Fetch · Music Player · Gallery · Interactions
+   Starfield · Publications · Music Player · Gallery · Interactions
    ============================================================ */
 
 // ==================== CONFIGURATION ====================
-const ARXIV_AUTHOR = 'Jia Luo';
-const ARXIV_MAX_RESULTS = 20;
-
-// arXiv preprint IDs to exclude from the publication list (listed as Research Projects instead)
-const EXCLUDE_ARXIV_IDS = ['2607.26903', '2607.27994'];
-
+// Publication metadata synchronized with public ORCID 0009-0007-3191-1375 on 2026-09-19.
+// Research projects are retained from the existing homepage and counted separately.
 const MANUAL_PAPERS = [
     {
         id: '2606.10359',
         title: 'ReflectiChain: Epistemic Grounding in LLM-Driven World Models for Supply Chain Resilience',
         authors: ['Jia Luo'],
         year: 2026,
+        date: '2026-06-10',
         abstract: 'Introduces REFLECTICHAIN, a framework bridging the epistemic gap between LLMs and RL for supply chain resilience. Features a Generative Supply Chain World Model (SC-WM) with 6D graph-latent space encoding and Double-Loop Learning that separates epistemic from aleatoric uncertainty. On the Semi-Sim benchmark (10-node semiconductor network), improves Rationale Consistency Score by 33.0% (p < 0.0001, d = 2.78) and maintains 82.3% operability under adversarial shocks.',
         venue: 'EIML@ICML 2026 Workshop (Poster)',
         isProject: false,
@@ -25,8 +22,10 @@ const MANUAL_PAPERS = [
         title: 'ReflectiChain: Mitigating Semantic-Execution Drift in Long-Horizon LLM Agents via Retrospective Reflection and Double-Loop Policy Adaptation',
         authors: ['Jia Luo', 'Min Liu', 'Zixin Huang', 'Zikan Ke', 'Qing Wang'],
         year: 2026,
+        date: '2026-08-04',
+        doi: '10.3390/electronics15153452',
         abstract: 'LLM agents in long-horizon planning often exhibit Semantic-Execution Drift (SED), where executed actions progressively deviate from original language constraints. We model SED as a stochastic drift process: D(t+1) = αD(t) + ε(t) + βP(t), and show that policies with α < 1 induce semantic contraction. We propose ReflectiChain, integrating Retrospective Reflection, a Latent World Model, and Double-Loop Policy Adaptation. We introduce Sema-Sim, a multi-agent supply chain benchmark with 10 policy constraints, 6 adversarial perturbations, and 30-step horizons, plus the Semantic Fidelity Index (SFI). On DeepSeek-V3.2 across 7 reasoning strategies, ReflectiChain achieves SFI of 88.7 and stable contraction (α = 0.823). Validated on Qwen3.5-122B and Qwen2.5-72B.',
-        venue: 'Electronics 15(15), 3452 (JCR Q2), 2026. DOI: 10.3390/electronics15153452',
+        venue: 'Electronics, 2026 · Journal article',
         isProject: false,
     },
     {
@@ -47,6 +46,27 @@ const MANUAL_PAPERS = [
         venue: 'Research Project · arXiv:2607.27994 [cs.AI] · Under submission to AAAI 2027',
         isProject: true,
     },
+    {
+        id: null,
+        title: 'A Multi-Strategy Ensemble-Enhanced BERT-LSTM Model and its Application to Sentiment Analysis',
+        authors: ['Jiachen Gao', 'Jia Luo', 'Mingjia Yang'],
+        year: 2025,
+        date: '2025-09-27',
+        doi: '10.1109/iciscae66104.2025.11307278',
+        venue: '2025 IEEE 8th International Conference on Information Systems and Computer Aided Education (ICISCAE)',
+        isProject: false,
+    },
+    {
+        id: null,
+        title: "Forecasting Growth and Exploring Trends in China's Pet Food Industry: A Multidimensional Analysis",
+        authors: ['Jia Luo'],
+        year: 2025,
+        date: '2025-03-17',
+        doi: '10.54097/pb6mdj82',
+        abstract: 'Analyzes market demand, growth trends, and international policy influences in China’s pet food industry using exponential smoothing, multivariate regression, ARIMA models, and PEST analysis.',
+        venue: 'Highlights in Business, Economics and Management, 2025 · Journal article',
+        isProject: false,
+    },
 ];
 
 // ==================== INIT ====================
@@ -57,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initSmoothScroll();
     initScrollReveal();
     initMusicPlayer();
-    fetchPapers();
+    loadPapers();
     initPaperFilter();
 });
 
@@ -302,101 +322,38 @@ function initMusicPlayer() {
     });
 }
 
-// ==================== ARXIV FETCH ====================
-async function fetchPapers() {
+// ==================== PUBLICATIONS ====================
+function loadPapers() {
+    // Use the curated records so same-name arXiv authors cannot alter this profile.
+    const papers = MANUAL_PAPERS.map(paper => ({
+        ...paper,
+        pdfUrl: paper.id ? `https://arxiv.org/pdf/${paper.id}` : null,
+        arxivUrl: paper.id ? `https://arxiv.org/abs/${paper.id}` : null,
+        doiUrl: paper.doi ? `https://doi.org/${paper.doi}` : null,
+    }));
+    papers.sort((a, b) => (b.date || `${b.year}-01-01`).localeCompare(a.date || `${a.year}-01-01`)
+        || a.title.localeCompare(b.title));
+
     const loading = document.getElementById('pub-loading');
-    const list = document.getElementById('pub-list');
-    const empty = document.getElementById('pub-empty');
-    let papers = [];
-
-    // Try arxiv API
-    try {
-        const query = `search_query=au:"${encodeURIComponent(ARXIV_AUTHOR)}"&sortBy=submittedDate&sortOrder=descending&max_results=${ARXIV_MAX_RESULTS}`;
-        const resp = await fetch(`https://export.arxiv.org/api/query?${query}`);
-        if (resp.ok) {
-            const text = await resp.text();
-            const parser = new DOMParser();
-            const xml = parser.parseFromString(text, 'text/xml');
-            const entries = xml.querySelectorAll('entry');
-
-            entries.forEach(entry => {
-                const idEl = entry.querySelector('id');
-                const titleEl = entry.querySelector('title');
-                const summaryEl = entry.querySelector('summary');
-                const publishedEl = entry.querySelector('published');
-
-                const rawId = idEl?.textContent || '';
-                const arxivId = rawId.replace(/.*\//, '').replace(/v\d+$/, '');
-                const title = (titleEl?.textContent || '').replace(/\s+/g, ' ').trim();
-                const summary = (summaryEl?.textContent || '').replace(/\n/g, ' ');
-                const year = publishedEl ? new Date(publishedEl.textContent).getFullYear() : 2026;
-
-                const authorNodes = entry.querySelectorAll('author name');
-                const authors = Array.from(authorNodes).map(n => n.textContent.trim());
-
-                // Fallback: try getElementsByTagNameNS for arxiv namespace fields
-                let journalRef = '';
-                try {
-                    const jr = entry.getElementsByTagNameNS('http://arxiv.org/schemas/atom', 'journal_ref');
-                    if (jr && jr[0]) journalRef = jr[0].textContent || '';
-                } catch(e) {}
-
-                // Skip arXiv preprints listed as Research Projects
-                if (EXCLUDE_ARXIV_IDS.includes(arxivId)) return;
-
-                papers.push({
-                    id: arxivId,
-                    title,
-                    authors: authors.length ? authors : ['Jia Luo'],
-                    year,
-                    abstract: summary.substring(0, 500) + (summary.length > 500 ? '...' : ''),
-                    venue: journalRef || null,
-                    pdfUrl: `https://arxiv.org/pdf/${arxivId}`,
-                    arxivUrl: `https://arxiv.org/abs/${arxivId}`,
-                });
-            });
-        }
-    } catch (err) {
-        console.warn('arXiv API fetch failed:', err.message);
-    }
-
-    // Merge manual papers (avoid duplicates)
-    MANUAL_PAPERS.forEach(mp => {
-        const exists = papers.find(p => p.id === mp.id || p.title === mp.title);
-        if (!exists) {
-            papers.push({
-                id: mp.id || 'accepted',
-                title: mp.title,
-                authors: mp.authors,
-                year: mp.year,
-                abstract: mp.abstract || '',
-                venue: mp.venue || null,
-                pdfUrl: mp.id ? `https://arxiv.org/pdf/${mp.id}` : null,
-                arxivUrl: mp.id ? `https://arxiv.org/abs/${mp.id}` : null,
-            });
-        }
-    });
-
-    // Hide loading
     if (loading) loading.style.display = 'none';
-
-    if (papers.length === 0) {
-        if (empty) empty.style.display = 'block';
-        return;
-    }
-
-    // Update paper count
     const countEl = document.getElementById('paper-count');
-    if (countEl) countEl.textContent = papers.length;
+    if (countEl) countEl.textContent = papers.filter(p => !p.isProject).length;
+    const projectCountEl = document.getElementById('project-count');
+    if (projectCountEl) projectCountEl.textContent = papers.filter(p => p.isProject).length;
 
-    papers.sort((a, b) => b.year - a.year || (b.id || '').localeCompare(a.id || ''));
-    renderPapers(papers);
     window._allPapers = papers;
+    applyFilters();
 }
 
 function renderPapers(papers) {
     const list = document.getElementById('pub-list');
     if (!list) return;
+
+    const empty = document.getElementById('pub-empty');
+    if (empty) {
+        empty.style.display = papers.length ? 'none' : 'block';
+        empty.querySelector('p').textContent = 'No matching publications or projects.';
+    }
 
     list.innerHTML = papers.map((paper, idx) => {
         const authorStr = paper.authors.map(a => {
@@ -405,7 +362,7 @@ function renderPapers(papers) {
             return isMe ? `<span class="me"><u>${a}</u></span>` : a;
         }).join(', ');
 
-        const hasArxiv = paper.id && paper.id !== 'accepted';
+        const hasArxiv = Boolean(paper.arxivUrl);
         const isProject = paper.isProject;
 
         return `
@@ -415,21 +372,23 @@ function renderPapers(papers) {
             <h3 class="paper-title">${paper.title}</h3>
             <p class="paper-authors">${authorStr}</p>
             ${paper.venue ? `<span class="paper-venue"><i class="fas ${isProject ? 'fa-diagram-project' : 'fa-trophy'}"></i> ${paper.venue}</span>` : ''}
-            <p class="paper-abstract">${paper.abstract || ''}</p>
+            ${paper.abstract ? `<p class="paper-abstract">${paper.abstract}</p>` : ''}
             <div class="paper-links">
                 ${hasArxiv ? `
-                <a href="${paper.pdfUrl}" target="_blank" class="paper-link paper-link-pdf">
+                <a href="${paper.pdfUrl}" target="_blank" rel="noopener noreferrer" class="paper-link paper-link-pdf">
                     <i class="fas fa-file-pdf"></i> PDF
                 </a>
-                <a href="${paper.arxivUrl}" target="_blank" class="paper-link paper-link-arxiv">
+                <a href="${paper.arxivUrl}" target="_blank" rel="noopener noreferrer" class="paper-link paper-link-arxiv">
                     <i class="fas fa-external-link-alt"></i> arXiv
-                </a>` : `
-                <span class="paper-link paper-link-pdf" style="opacity:0.5;cursor:default;">
-                    <i class="fas fa-clock"></i> Coming Soon
-                </span>`}
+                </a>` : ''}
+                ${paper.doiUrl ? `
+                <a href="${paper.doiUrl}" target="_blank" rel="noopener noreferrer" class="paper-link paper-link-arxiv">
+                    <i class="fas fa-external-link-alt"></i> DOI
+                </a>` : ''}
+                ${paper.abstract ? `
                 <button class="paper-link paper-link-abs" onclick="toggleAbstract(this)" aria-label="Toggle abstract">
                     <i class="fas fa-chevron-down"></i> Abstract
-                </button>
+                </button>` : ''}
             </div>
         </div>`;
     }).join('');

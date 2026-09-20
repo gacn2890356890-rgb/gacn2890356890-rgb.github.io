@@ -8,7 +8,7 @@ Genshin Impact themed GitHub Pages academic homepage featuring **Furina**, **San
 - 🖼️ **Character Gallery** — Flip cards for Furina, Sandrone (CSS art), and Moon Goddess (Layla)
 - 🖼️ **Wallpaper Strip** — Horizontal showcase of character images
 - 🎵 **Music Player** — Genshin Impact relaxing OST (YouTube embed)
-- 📄 **Auto-fetch arXiv** — Automatically pulls papers from arXiv API + manual fallback
+- 📄 **ORCID publication records** — Four publications synchronized with public ORCID metadata; two existing research projects listed separately
 - ⚙️ **Sandrone CSS Art** — Mechanical puppet with animated gears (no external image needed)
 - 📱 **Fully Responsive** — Works on desktop, tablet, and mobile
 - 🌐 **All English** — International-friendly presentation
@@ -41,7 +41,10 @@ git push -u origin main
 
 Edit `script.js`:
 - `MANUAL_PAPERS[]` — Add/update your papers
-- `ARXIV_AUTHOR` — Change arxiv search query
+- Publication fields: `date`, `doi`, authors, venue, and `isProject`; `id` is reserved for an arXiv ID
+- Records are curated locally instead of fetched by author name; changes require a commit
+- Education and publication metadata last checked against [ORCID](https://orcid.org/0009-0007-3191-1375) on September 19, 2026
+- Existing research projects, BISP affiliation, research interests, and service are retained from the prior homepage; they are not additions from ORCID
 
 Edit `index.html`:
 - YouTube video ID for music (search for `nGDk6JqfQu0`)
@@ -53,6 +56,6 @@ Edit `index.html`:
 |------|---------|
 | `index.html` | Main page (all sections) |
 | `styles.css` | Complete styling (Genshin palette) |
-| `script.js` | Starfield, arxiv fetch, music player, interactions |
+| `script.js` | Starfield, publication records, music player, interactions |
 | `images/` | Furina splash, icon, Layla, Lisa character art |
 | `profile-README.md` | GitHub profile README (put in `gacn2890356890-rgb` repo) |
