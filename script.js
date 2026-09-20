@@ -5,8 +5,20 @@
 
 // ==================== CONFIGURATION ====================
 // Publication metadata synchronized with public ORCID 0009-0007-3191-1375 on 2026-09-19.
+// IEEE Signal Processing Letters entry verified against IEEE Xplore document 11663390.
 // Research projects are retained from the existing homepage and counted separately.
 const MANUAL_PAPERS = [
+    {
+        id: null,
+        title: 'ReflectiChain: Grounding Long-Horizon LLM Planning against Semantic-Execution Drift',
+        authors: ['Jia Luo'],
+        year: 2026,
+        date: '2026-08-24',
+        doi: '10.1109/LSP.2026.3726840',
+        abstract: 'ReflectiChain combines an implicit latent world model with retrospective reflection to keep long-horizon LLM planning aligned with its original language constraints. On Sema-Sim, the framework improves the Rationale Consistency Score by over 30% relative to the reported baselines.',
+        venue: 'IEEE Signal Processing Letters · Early Access · pp. 1–5 · Published August 24, 2026',
+        isProject: false,
+    },
     {
         id: '2606.10359',
         title: 'ReflectiChain: Epistemic Grounding in LLM-Driven World Models for Supply Chain Resilience',

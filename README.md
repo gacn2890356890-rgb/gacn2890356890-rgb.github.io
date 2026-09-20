@@ -8,7 +8,7 @@ Genshin Impact themed GitHub Pages academic homepage featuring **Furina**, **San
 - 🖼️ **Character Gallery** — Flip cards for Furina, Sandrone (CSS art), and Moon Goddess (Layla)
 - 🖼️ **Wallpaper Strip** — Horizontal showcase of character images
 - 🎵 **Music Player** — Genshin Impact relaxing OST (YouTube embed)
-- 📄 **ORCID publication records** — Four publications synchronized with public ORCID metadata; two existing research projects listed separately
+- 📄 **ORCID publication records** — Five publications compiled from public ORCID metadata and IEEE Xplore; two existing research projects listed separately
 - ⚙️ **Sandrone CSS Art** — Mechanical puppet with animated gears (no external image needed)
 - 📱 **Fully Responsive** — Works on desktop, tablet, and mobile
 - 🌐 **All English** — International-friendly presentation
@@ -59,3 +59,5 @@ Edit `index.html`:
 | `script.js` | Starfield, publication records, music player, interactions |
 | `images/` | Furina splash, icon, Layla, Lisa character art |
 | `profile-README.md` | GitHub profile README (put in `gacn2890356890-rgb` repo) |
+
+The additional IEEE Signal Processing Letters article is verified against [IEEE Xplore](https://ieeexplore.ieee.org/abstract/document/11663390): Jia Luo, “ReflectiChain: Grounding Long-Horizon LLM Planning against Semantic-Execution Drift,” Early Access, pp. 1–5, August 24, 2026, DOI: 10.1109/LSP.2026.3726840.
